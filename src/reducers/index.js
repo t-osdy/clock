@@ -3,4 +3,4 @@ import { clock } from "./clock"
 
 export const reducer = combineReducers({
   clock
-});
+})

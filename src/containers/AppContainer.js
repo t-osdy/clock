@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import * as ClockActions from "../actions/clock"
+import * as actions from "../actions/clock"
 import Clock from "../components/Clock"
 
-connect(
-  state => ({time: state.clock}),
-  dispatch => bindActionCreators(ClockActions, dispatch)
-)
+const mapState = (state, ownProps) => ({
+  time: state.clock,
+})
 
-export default class App extends Component {
+const mapDispatch = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+  }
+} 
+
+class App extends Component {
   static propTypes = {
     syncDate: PropTypes.func.isRequired,
     time: PropTypes.shape({
@@ -32,8 +37,9 @@ export default class App extends Component {
       <div>
         <h1>Clock</h1>
         <Clock {...this.props.time}/>
-        <p className="inspire">inspired by <a href ="http://example.com"/></p>
       </div>
     )
   }
 }
+
+export const AppContainer = connect(mapState, mapDispatch)(App)
