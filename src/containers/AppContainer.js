@@ -15,6 +15,14 @@ const mapDispatch = (dispatch) => {
 } 
 
 class App extends Component {
+  componentDidMount(){
+   this.time = setInterval(this.props.syncDate, 2000)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.time)
+  }
+
   static propTypes = {
     syncDate: PropTypes.func.isRequired,
     time: PropTypes.shape({
@@ -22,14 +30,6 @@ class App extends Component {
       minutes: PropTypes.number.isRequired,
       seconds: PropTypes.number.isRequired
     })
-  };
-
-  componentDidMount(){
-   this.timer = setInterval(this.props.syncDate, 1000)
-  }
-
-  componentWillUnmount(){
-    clearInterval(this.timer)
   }
 
   render() {
